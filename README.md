@@ -85,18 +85,3 @@ The application follows a clean architecture approach with separation of concern
    ```
 
 7. Open your browser and navigate to `https://localhost:5001` or `http://localhost:5000`
-
-## Future Enhancements
-
-- User authentication and authorization
-- Advanced reporting and analytics
-- Product categories and tagging
-- Supplier management
-- Customer management
-- Barcode scanning support
-- Export functionality (PDF, Excel)
-- Email notifications
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
