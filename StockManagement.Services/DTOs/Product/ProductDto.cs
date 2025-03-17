@@ -12,5 +12,6 @@ namespace StockManagement.Services.DTOs.Product
         public string Name { get; set; }
         public int StockQuantity { get; set; }
         public decimal Price { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

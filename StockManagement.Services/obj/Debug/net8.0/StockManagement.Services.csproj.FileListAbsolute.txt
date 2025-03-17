@@ -1,3 +1,9 @@
+C:\Users\asalem\Projects\StockManagement\StockManagement.Services\obj\Debug\net8.0\StockManagement.Services.csproj.AssemblyReference.cache
+C:\Users\asalem\Projects\StockManagement\StockManagement.Services\obj\Debug\net8.0\StockManagement.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\asalem\Projects\StockManagement\StockManagement.Services\obj\Debug\net8.0\StockManagement.Services.AssemblyInfoInputs.cache
+C:\Users\asalem\Projects\StockManagement\StockManagement.Services\obj\Debug\net8.0\StockManagement.Services.AssemblyInfo.cs
+C:\Users\asalem\Projects\StockManagement\StockManagement.Services\obj\Debug\net8.0\StockManagement.Services.csproj.CoreCompileInputs.cache
+C:\Users\asalem\Projects\StockManagement\StockManagement.Services\obj\Debug\net8.0\StockManagement.Services.sourcelink.json
 C:\Users\asalem\Projects\StockManagement\StockManagement.Services\bin\Debug\net8.0\StockManagement.Services.deps.json
 C:\Users\asalem\Projects\StockManagement\StockManagement.Services\bin\Debug\net8.0\StockManagement.Services.dll
 C:\Users\asalem\Projects\StockManagement\StockManagement.Services\bin\Debug\net8.0\StockManagement.Services.pdb
@@ -5,12 +11,6 @@ C:\Users\asalem\Projects\StockManagement\StockManagement.Services\bin\Debug\net8
 C:\Users\asalem\Projects\StockManagement\StockManagement.Services\bin\Debug\net8.0\StockManagement.Infrastructure.dll
 C:\Users\asalem\Projects\StockManagement\StockManagement.Services\bin\Debug\net8.0\StockManagement.Core.pdb
 C:\Users\asalem\Projects\StockManagement\StockManagement.Services\bin\Debug\net8.0\StockManagement.Infrastructure.pdb
-C:\Users\asalem\Projects\StockManagement\StockManagement.Services\obj\Debug\net8.0\StockManagement.Services.csproj.AssemblyReference.cache
-C:\Users\asalem\Projects\StockManagement\StockManagement.Services\obj\Debug\net8.0\StockManagement.Services.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\asalem\Projects\StockManagement\StockManagement.Services\obj\Debug\net8.0\StockManagement.Services.AssemblyInfoInputs.cache
-C:\Users\asalem\Projects\StockManagement\StockManagement.Services\obj\Debug\net8.0\StockManagement.Services.AssemblyInfo.cs
-C:\Users\asalem\Projects\StockManagement\StockManagement.Services\obj\Debug\net8.0\StockManagement.Services.csproj.CoreCompileInputs.cache
-C:\Users\asalem\Projects\StockManagement\StockManagement.Services\obj\Debug\net8.0\StockManagement.Services.sourcelink.json
 C:\Users\asalem\Projects\StockManagement\StockManagement.Services\obj\Debug\net8.0\StockMan.E6EBF99E.Up2Date
 C:\Users\asalem\Projects\StockManagement\StockManagement.Services\obj\Debug\net8.0\StockManagement.Services.dll
 C:\Users\asalem\Projects\StockManagement\StockManagement.Services\obj\Debug\net8.0\refint\StockManagement.Services.dll

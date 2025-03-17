@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StockManagement.Core.Entities;
+using StockManagement.Core.Interfaces;
 using StockManagement.Core.Interfaces.Repositories;
 using StockManagement.Infrastructure.Data;
 using System;
@@ -14,16 +15,18 @@ namespace StockManagement.Infrastructure.Repositories
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected readonly ApplicationDbContext _context;
+        protected readonly DbSet<T> _dbSet;
 
         public GenericRepository(ApplicationDbContext context)
         {
             _context = context;
+            _dbSet = context.Set<T>();
         }
 
         // Get all entities with optional includes
         public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _dbSet;
             query = ApplyIncludes(query, includes);
             return await query.AsNoTracking().ToListAsync();
         }
@@ -31,13 +34,13 @@ namespace StockManagement.Infrastructure.Repositories
         // Get an entity by ID
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _context.Set<T>().FindAsync(id);
+            return await _dbSet.FindAsync(id);
         }
 
         // Find a single entity based on criteria with optional includes
         public async Task<T> FindAsync(Expression<Func<T, bool>> criteria, params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _dbSet;
             query = ApplyIncludes(query, includes);
             return await query.SingleOrDefaultAsync(criteria);
         }
@@ -45,7 +48,7 @@ namespace StockManagement.Infrastructure.Repositories
         // Find multiple entities based on criteria with optional includes
         public async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> criteria, params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _context.Set<T>().Where(criteria);
+            IQueryable<T> query = _dbSet.Where(criteria);
             query = ApplyIncludes(query, includes);
             return await query.AsNoTracking().ToListAsync();
         }
@@ -59,7 +62,7 @@ namespace StockManagement.Infrastructure.Repositories
             string orderByDirection = "ASC",
             params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _dbSet;
 
             if (criteria != null)
                 query = query.Where(criteria);
@@ -81,50 +84,69 @@ namespace StockManagement.Infrastructure.Repositories
         // Add a new entity
         public async Task<T> AddAsync(T entity)
         {
-            await _context.Set<T>().AddAsync(entity);
-            return entity; // SaveChanges will be handled by UoF
+            await _dbSet.AddAsync(entity);
+            return entity;
         }
 
         // Add a range of entities
         public async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities)
         {
-            await _context.Set<T>().AddRangeAsync(entities);
-            return entities; // SaveChanges will be handled by UoF
+            await _dbSet.AddRangeAsync(entities);
+            return entities;
         }
 
         // Update an existing entity
         public T Update(T entity)
         {
-            _context.Set<T>().Update(entity);
-            return entity; // SaveChanges will be handled by UoF
+            _dbSet.Update(entity);
+            return entity;
         }
 
         // Delete an entity
         public void Delete(T entity)
         {
-            _context.Set<T>().Remove(entity);
+            if (entity is ISoftDelete softDelete)
+            {
+                softDelete.IsDeleted = true;
+                _dbSet.Update(entity);
+            }
+            else
+            {
+                _dbSet.Remove(entity);
+            }
         }
 
         // Delete a range of entities
         public void DeleteRange(IEnumerable<T> entities)
         {
-            _context.Set<T>().RemoveRange(entities);
+            foreach (var entity in entities)
+            {
+                if (entity is ISoftDelete softDelete)
+                {
+                    softDelete.IsDeleted = true;
+                    _dbSet.Update(entity);
+                }
+                else
+                {
+                    _dbSet.Remove(entity);
+                }
+            }
         }
 
         // Count all entities
         public async Task<int> CountAsync()
         {
-            return await _context.Set<T>().CountAsync();
+            return await _dbSet.CountAsync();
         }
 
         // Count entities matching criteria
         public async Task<int> CountAsync(Expression<Func<T, bool>> criteria)
         {
-            return await _context.Set<T>().CountAsync(criteria);
+            return await _dbSet.CountAsync(criteria);
         }
 
         // Helper: Apply includes to query
-        private IQueryable<T> ApplyIncludes(IQueryable<T> query, params Expression<Func<T, object>>[] includes)
+        protected IQueryable<T> ApplyIncludes(IQueryable<T> query, params Expression<Func<T, object>>[] includes)
         {
             if (includes != null)
             {
