@@ -1,0 +1,236 @@
+@model StockManagement.Services.DTOs.Order.CreateOrderDto
+
+@{
+    ViewData["Title"] = "Create Order";
+    var products = ViewBag.Products as IEnumerable<StockManagement.Services.DTOs.Product.ProductDto>;
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4><i class="bi bi-cart-plus"></i> Create New Order</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post" id="orderForm">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="mb-4">
+                            <h5>Order Items</h5>
+                            <div id="orderItems">
+                                <!-- Order items will be added here dynamically -->
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <button type="button" id="addItemBtn" class="btn btn-outline-primary">
+                                        <i class="bi bi-plus-circle"></i> Add Item
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6 offset-md-6">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <h5>Total:</h5>
+                                            <h5 id="orderTotal">$0.00</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                            <button type="submit" class="btn btn-success" id="submitOrder">
+                                <i class="bi bi-check-circle"></i> Create Order
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Template for order item -->
+<template id="orderItemTemplate">
+    <div class="card mb-3 order-item">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <label class="form-label">Product</label>
+                    <select class="form-select product-select" name="OrderItems[{index}].ProductId" required>
+                        <option value="">-- Select Product --</option>
+                        @foreach (var product in products)
+                        {
+                            <option value="@product.Id" data-price="@product.Price" data-stock="@product.StockQuantity">
+                                @product.Name - $@product.Price - Stock: @product.StockQuantity
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <label class="form-label">Quantity</label>
+                    <input type="number" class="form-control quantity-input" name="OrderItems[{index}].Quantity" min="1"
+                        value="1" required />
+                    <div class="invalid-feedback">
+                        Quantity exceeds available stock!
+                    </div>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <label class="form-label">Unit Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="text" class="form-control unit-price" readonly />
+                    </div>
+                </div>
+                <div class="col-md-2 mb-2">
+                    <label class="form-label">Actions</label>
+                    <button type="button" class="btn btn-danger remove-item">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            let itemIndex = 0;
+
+            // Add initial item
+            addOrderItem();
+
+            // Add item button click
+            $("#addItemBtn").click(function () {
+                addOrderItem();
+            });
+
+            // Remove item button click (using event delegation)
+            $("#orderItems").on("click", ".remove-item", function () {
+                if ($(".order-item").length > 1) {
+                    $(this).closest(".order-item").remove();
+                    // Reindex the remaining items
+                    reindexItems();
+                    updateTotalAmount();
+                } else {
+                    alert("Order must have at least one item!");
+                }
+            });
+
+            // Product selection change
+            $("#orderItems").on("change", ".product-select", function () {
+                const selectedOption = $(this).find("option:selected");
+                const unitPrice = selectedOption.data("price") || 0;
+                const stockQuantity = selectedOption.data("stock") || 0;
+
+                const itemRow = $(this).closest(".order-item");
+                itemRow.find(".unit-price").val(unitPrice.toFixed(2));
+
+                // Update max quantity based on stock
+                const quantityInput = itemRow.find(".quantity-input");
+                quantityInput.attr("max", stockQuantity);
+
+                // Validate quantity
+                validateQuantity(quantityInput);
+
+                updateTotalAmount();
+            });
+
+            // Quantity change
+            $("#orderItems").on("change keyup", ".quantity-input", function () {
+                validateQuantity($(this));
+                updateTotalAmount();
+            });
+
+            // Form submission
+            $("#orderForm").submit(function (e) {
+                // Check if any products are selected
+                let valid = true;
+                $(".product-select").each(function () {
+                    if (!$(this).val()) {
+                        valid = false;
+                        $(this).addClass("is-invalid");
+                    } else {
+                        $(this).removeClass("is-invalid");
+                    }
+                });
+
+                if (!valid) {
+                    e.preventDefault();
+                    alert("Please select a product for each item!");
+                    return false;
+                }
+
+                // Check if any items have invalid quantities
+                const hasInvalidQuantities = $(".quantity-input.is-invalid").length > 0;
+
+                if (hasInvalidQuantities) {
+                    e.preventDefault();
+                    alert("Please correct the quantities that exceed available stock!");
+                    return false;
+                }
+
+                // Reindex items before submitting to ensure proper array indexing
+                reindexItems();
+
+                return true;
+            });
+
+            // Function to add a new order item
+            function addOrderItem() {
+                const template = document.getElementById("orderItemTemplate").innerHTML;
+                const newItem = template.replace(/{index}/g, itemIndex);
+                $("#orderItems").append(newItem);
+                itemIndex++;
+            }
+
+            // Function to reindex items to ensure proper array indexing
+            function reindexItems() {
+                let newIndex = 0;
+                $(".order-item").each(function () {
+                    $(this).find(".product-select").attr("name", `OrderItems[${newIndex}].ProductId`);
+                    $(this).find(".quantity-input").attr("name", `OrderItems[${newIndex}].Quantity`);
+                    newIndex++;
+                });
+            }
+
+            // Function to validate quantity against stock
+            function validateQuantity(quantityInput) {
+                const quantity = parseInt(quantityInput.val()) || 0;
+                const maxQuantity = parseInt(quantityInput.attr("max")) || 0;
+
+                if (maxQuantity > 0 && quantity > maxQuantity) {
+                    quantityInput.addClass("is-invalid");
+                } else {
+                    quantityInput.removeClass("is-invalid");
+                }
+            }
+
+            // Function to update total amount
+            function updateTotalAmount() {
+                let total = 0;
+
+                $(".order-item").each(function () {
+                    const quantity = parseInt($(this).find(".quantity-input").val()) || 0;
+                    const unitPrice = parseFloat($(this).find(".unit-price").val()) || 0;
+                    total += quantity * unitPrice;
+                });
+
+                $("#orderTotal").text("$" + total.toFixed(2));
+            }
+        });
+    </script>
+}

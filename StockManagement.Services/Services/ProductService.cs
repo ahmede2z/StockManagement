@@ -3,6 +3,7 @@ using StockManagement.Core.Entities;
 using StockManagement.Core.Interfaces;
 using StockManagement.Services.DTOs.Product;
 using StockManagement.Services.Interfaces;
+using System.Linq;
 
 namespace StockManagement.Services.Services
 {
@@ -43,7 +44,7 @@ namespace StockManagement.Services.Services
             if (product == null)
                 throw new Exception("Product not found.");
             _mapper.Map(updateProductDto, product);
-             _unitOfWork.Products.Update(product);
+            _unitOfWork.Products.Update(product);
             await _unitOfWork.Complete();
         }
 
@@ -52,7 +53,35 @@ namespace StockManagement.Services.Services
             var product = await _unitOfWork.Products.GetByIdAsync(id);
             if (product == null)
                 throw new Exception("Product not found.");
-             _unitOfWork.Products.Delete(product);
+
+            // Get all order items associated with this product
+            var orderItems = await _unitOfWork.Orders.GetOrderItemsByProductIdAsync(id);
+
+            // If there are order items, delete them first
+            if (orderItems.Any())
+            {
+                // Group order items by order ID to identify affected orders
+                var affectedOrderIds = orderItems.Select(oi => oi.OrderId).Distinct().ToList();
+
+                // Delete all order items associated with this product
+                foreach (var orderItem in orderItems)
+                {
+                    _unitOfWork.Orders.DeleteOrderItem(orderItem);
+                }
+
+                // Check if any orders are now empty (no items) and delete them too
+                foreach (var orderId in affectedOrderIds)
+                {
+                    var order = await _unitOfWork.Orders.GetOrderWithItemsAsync(orderId);
+                    if (order != null && !order.OrderItems.Any(oi => oi.ProductId != id))
+                    {
+                        _unitOfWork.Orders.Delete(order);
+                    }
+                }
+            }
+
+            // Now delete the product
+            _unitOfWork.Products.Delete(product);
             await _unitOfWork.Complete();
         }
     }

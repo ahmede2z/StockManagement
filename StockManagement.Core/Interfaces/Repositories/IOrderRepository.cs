@@ -1,8 +1,5 @@
 ﻿using StockManagement.Core.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace StockManagement.Core.Interfaces.Repositories
@@ -11,5 +8,7 @@ namespace StockManagement.Core.Interfaces.Repositories
     {
         Task<IReadOnlyList<Order>> GetOrdersWithItemsAsync();
         Task<Order> GetOrderWithItemsAsync(int id);
+        Task<IEnumerable<OrderItem>> GetOrderItemsByProductIdAsync(int productId);
+        void DeleteOrderItem(OrderItem orderItem);
     }
 }

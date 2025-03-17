@@ -2,10 +2,8 @@
 using StockManagement.Core.Entities;
 using StockManagement.Core.Interfaces.Repositories;
 using StockManagement.Infrastructure.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace StockManagement.Infrastructure.Repositories
@@ -30,6 +28,19 @@ namespace StockManagement.Infrastructure.Repositories
                 .Include(o => o.OrderItems)
                 .ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(o => o.Id == id);
+        }
+
+        public async Task<IEnumerable<OrderItem>> GetOrderItemsByProductIdAsync(int productId)
+        {
+            return await _context.OrderItems
+                .Where(oi => oi.ProductId == productId)
+                .Include(oi => oi.Order)
+                .ToListAsync();
+        }
+
+        public void DeleteOrderItem(OrderItem orderItem)
+        {
+            _context.OrderItems.Remove(orderItem);
         }
     }
 }

@@ -6,5 +6,6 @@ namespace StockManagement.Services.Interfaces
     {
         Task<IEnumerable<OrderDto>> GetAllOrdersAsync();
         Task<OrderDto> CreateOrderAsync(CreateOrderDto createOrderDto);
+        Task<OrderDto> GetOrderByIdAsync(int id);
     }
 }

@@ -23,6 +23,15 @@ namespace StockManagement.Services.Services
             return _mapper.Map<IEnumerable<OrderDto>>(orders);
         }
 
+        public async Task<OrderDto> GetOrderByIdAsync(int id)
+        {
+            var order = await _unitOfWork.Orders.GetOrderWithItemsAsync(id);
+            if (order == null)
+                return null;
+
+            return _mapper.Map<OrderDto>(order);
+        }
+
         public async Task<OrderDto> CreateOrderAsync(CreateOrderDto createOrderDto)
         {
             try

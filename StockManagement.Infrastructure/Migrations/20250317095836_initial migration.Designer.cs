@@ -12,8 +12,8 @@ using StockManagement.Infrastructure.Data;
 namespace StockManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250317055840_initial Migration")]
-    partial class initialMigration
+    [Migration("20250317095836_initial migration")]
+    partial class initialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,29 +94,6 @@ namespace StockManagement.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Product 1",
-                            Price = 10.99m,
-                            StockQuantity = 100
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Product 2",
-                            Price = 25.99m,
-                            StockQuantity = 50
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Product 3",
-                            Price = 15.50m,
-                            StockQuantity = 75
-                        });
                 });
 
             modelBuilder.Entity("StockManagement.Core.Entities.OrderItem", b =>
@@ -130,7 +107,7 @@ namespace StockManagement.Infrastructure.Migrations
                     b.HasOne("StockManagement.Core.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Order");

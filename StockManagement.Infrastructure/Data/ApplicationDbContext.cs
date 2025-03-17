@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StockManagement.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StockManagement.Infrastructure.Data
 {
@@ -30,14 +25,7 @@ namespace StockManagement.Infrastructure.Data
                 .HasOne(oi => oi.Product)
                 .WithMany()
                 .HasForeignKey(oi => oi.ProductId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // Seed initial data
-            modelBuilder.Entity<Product>().HasData(
-                new Product { Id = 1, Name = "Product 1", StockQuantity = 100, Price = 10.99m },
-                new Product { Id = 2, Name = "Product 2", StockQuantity = 50, Price = 25.99m },
-                new Product { Id = 3, Name = "Product 3", StockQuantity = 75, Price = 15.50m }
-            );
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

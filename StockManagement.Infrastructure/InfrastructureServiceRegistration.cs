@@ -21,6 +21,12 @@ namespace StockManagement.Infrastructure
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                  o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 
+            // Register repositories
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+
+            // Register unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
