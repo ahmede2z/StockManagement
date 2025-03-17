@@ -1,0 +1,35 @@
+﻿using Microsoft.EntityFrameworkCore;
+using StockManagement.Core.Entities;
+using StockManagement.Core.Interfaces.Repositories;
+using StockManagement.Infrastructure.Data;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StockManagement.Infrastructure.Repositories
+{
+    public class OrderRepository : GenericRepository<Order>, IOrderRepository
+    {
+        public OrderRepository(ApplicationDbContext context) : base(context)
+        {
+        }
+
+        public async Task<IReadOnlyList<Order>> GetOrdersWithItemsAsync()
+        {
+            return await _context.Orders
+                .Include(o => o.OrderItems)
+                .ThenInclude(i => i.Product)
+                .ToListAsync();
+        }
+
+        public async Task<Order> GetOrderWithItemsAsync(int id)
+        {
+            return await _context.Orders
+                .Include(o => o.OrderItems)
+                .ThenInclude(i => i.Product)
+                .FirstOrDefaultAsync(o => o.Id == id);
+        }
+    }
+}

@@ -1,3 +1,5 @@
+using StockManagement.Infrastructure;
+using StockManagement.Services;
 namespace StockManagement.Presentation
 {
     public class Program
@@ -6,8 +8,16 @@ namespace StockManagement.Presentation
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            #region // Add services to the container.
+
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddApplicationServices();
+            builder.Services.AddInfrastructure(builder.Configuration);
+            #endregion
+
 
             var app = builder.Build();
 

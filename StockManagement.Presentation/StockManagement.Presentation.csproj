@@ -6,4 +6,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StockManagement.Core\StockManagement.Core.csproj" />
+    <ProjectReference Include="..\StockManagement.Infrastructure\StockManagement.Infrastructure.csproj" />
+    <ProjectReference Include="..\StockManagement.Services\StockManagement.Services.csproj" />
+  </ItemGroup>
+
 </Project>

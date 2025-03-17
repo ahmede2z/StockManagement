@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StockManagement.Core\StockManagement.Core.csproj" />
+    <ProjectReference Include="..\StockManagement.Infrastructure\StockManagement.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

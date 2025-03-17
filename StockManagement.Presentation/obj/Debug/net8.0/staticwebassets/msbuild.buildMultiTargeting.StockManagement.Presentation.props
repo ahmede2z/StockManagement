@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\StockManagement.Presentation.props" />
+</Project>

@@ -1,0 +1,12 @@
+C:\Users\asalem\Projects\StockManagement\StockManagement.Core\bin\Debug\net8.0\StockManagement.Core.deps.json
+C:\Users\asalem\Projects\StockManagement\StockManagement.Core\bin\Debug\net8.0\StockManagement.Core.dll
+C:\Users\asalem\Projects\StockManagement\StockManagement.Core\bin\Debug\net8.0\StockManagement.Core.pdb
+C:\Users\asalem\Projects\StockManagement\StockManagement.Core\obj\Debug\net8.0\StockManagement.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\asalem\Projects\StockManagement\StockManagement.Core\obj\Debug\net8.0\StockManagement.Core.AssemblyInfoInputs.cache
+C:\Users\asalem\Projects\StockManagement\StockManagement.Core\obj\Debug\net8.0\StockManagement.Core.AssemblyInfo.cs
+C:\Users\asalem\Projects\StockManagement\StockManagement.Core\obj\Debug\net8.0\StockManagement.Core.csproj.CoreCompileInputs.cache
+C:\Users\asalem\Projects\StockManagement\StockManagement.Core\obj\Debug\net8.0\StockManagement.Core.sourcelink.json
+C:\Users\asalem\Projects\StockManagement\StockManagement.Core\obj\Debug\net8.0\StockManagement.Core.dll
+C:\Users\asalem\Projects\StockManagement\StockManagement.Core\obj\Debug\net8.0\refint\StockManagement.Core.dll
+C:\Users\asalem\Projects\StockManagement\StockManagement.Core\obj\Debug\net8.0\StockManagement.Core.pdb
+C:\Users\asalem\Projects\StockManagement\StockManagement.Core\obj\Debug\net8.0\ref\StockManagement.Core.dll

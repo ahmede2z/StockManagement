@@ -1,7 +1,20 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\asalem\\Projects\\StockManagement\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6DBFB489-CBB4-4DDE-9669-BC975681E688}|StockManagement.Presentation\\StockManagement.Presentation.csproj|c:\\users\\asalem\\projects\\stockmanagement\\stockmanagement.presentation\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{6DBFB489-CBB4-4DDE-9669-BC975681E688}|StockManagement.Presentation\\StockManagement.Presentation.csproj|solutionrelative:stockmanagement.presentation\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7883C7A3-2320-4197-ACA9-ADC7624ACC17}|StockManagement.Infrastructure\\StockManagement.Infrastructure.csproj|c:\\users\\asalem\\projects\\stockmanagement\\stockmanagement.infrastructure\\migrations\\20250317055840_initial migration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7883C7A3-2320-4197-ACA9-ADC7624ACC17}|StockManagement.Infrastructure\\StockManagement.Infrastructure.csproj|solutionrelative:stockmanagement.infrastructure\\migrations\\20250317055840_initial migration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7883C7A3-2320-4197-ACA9-ADC7624ACC17}|StockManagement.Infrastructure\\StockManagement.Infrastructure.csproj|c:\\users\\asalem\\projects\\stockmanagement\\stockmanagement.infrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7883C7A3-2320-4197-ACA9-ADC7624ACC17}|StockManagement.Infrastructure\\StockManagement.Infrastructure.csproj|solutionrelative:stockmanagement.infrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +22,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\asalem\\Projects\\StockManagement\\StockManagement.Presentation\\appsettings.json",
+              "RelativeDocumentMoniker": "StockManagement.Presentation\\appsettings.json",
+              "ToolTip": "C:\\Users\\asalem\\Projects\\StockManagement\\StockManagement.Presentation\\appsettings.json",
+              "RelativeToolTip": "StockManagement.Presentation\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-17T06:00:55.369Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "20250317055840_initial Migration.cs",
+              "DocumentMoniker": "C:\\Users\\asalem\\Projects\\StockManagement\\StockManagement.Infrastructure\\Migrations\\20250317055840_initial Migration.cs",
+              "RelativeDocumentMoniker": "StockManagement.Infrastructure\\Migrations\\20250317055840_initial Migration.cs",
+              "ToolTip": "C:\\Users\\asalem\\Projects\\StockManagement\\StockManagement.Infrastructure\\Migrations\\20250317055840_initial Migration.cs",
+              "RelativeToolTip": "StockManagement.Infrastructure\\Migrations\\20250317055840_initial Migration.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA1wBcAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-17T05:58:42.211Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\asalem\\Projects\\StockManagement\\StockManagement.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "StockManagement.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\asalem\\Projects\\StockManagement\\StockManagement.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "StockManagement.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-17T05:55:04.373Z",
+              "EditorCaption": ""
             }
           ]
         }
